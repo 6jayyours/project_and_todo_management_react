@@ -1,8 +1,33 @@
-# React + Vite
+# Todo Management Application - React Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This project is a React frontend for the Todo Management application. It provides an interface for managing projects and tasks, integrated with a Spring Boot backend.
 
-Currently, two official plugins are available:
+## Prerequisites
+- Node.js (version 16 or higher)
+- npm (version 8 or higher)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Setup Instructions
+
+### Clone the Repository
+Clone the repository using the following command:
+
+```bash
+git clone https://github.com/your-username/todos_react.git
+cd todos_react
+```
+
+## Install Dependencies
+Install the project dependencies using npm:
+```bash
+npm install
+```
+
+## Running the Application
+### Start the Development Server
+You can run the application in development mode with the following command:
+```bash
+npm run dev
+```
+This will start the Vite development server, and you can access the application at http://localhost:5173
+
