@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { registerUser, clearError } from "../redux/slice/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 const Register = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth);
+  const navigate  = useNavigate();
 
   // Clear error after a delay
   useEffect(() => {
@@ -45,10 +47,16 @@ const Register = () => {
         </a>
         <div className="w-full bg-gray-200 rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+
+            {/** title */}
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
               Create your account
             </h1>
-            {error && <p className="text-red-600">{error}</p>} {/* Display error message */}
+
+            {/** error message */}
+            {error && <p className="text-red-600">{error}</p>} 
+
+            {/** form */}
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
