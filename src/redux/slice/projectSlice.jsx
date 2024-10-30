@@ -43,6 +43,47 @@ export const getAllProjects = createAsyncThunk(
   }
 );
 
+export const getProject = createAsyncThunk(
+  "project/getProject",
+  async (projectId, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${PROJECT_URL}project/${projectId}`);
+      return response.data; 
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || "Fetching project failed";
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
+export const exportAsGist = createAsyncThunk(
+  "project/exportAsGist",
+  async ({ project, markdownContent }, { rejectWithValue }) => {
+    const gistData = {
+      description: `Project Summary - ${project.title || "Project Title"}`,
+      public: true,
+      files: {
+        [`${project.title || "Project"}.md`]: {
+          content: markdownContent,
+        },
+      },
+    };
+
+    try {
+      const response = await axios.post("https://api.github.com/gists", gistData, {
+        headers: {
+          Authorization: `Bearer my_token`, // Replace with your GitHub token
+        },
+      });
+      return response.data; // Gist URL or response data
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || "Failed to create gist";
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
+
 // Project slice
 const projectSlice = createSlice({
   name: "project",

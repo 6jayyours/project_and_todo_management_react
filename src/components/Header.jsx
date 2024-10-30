@@ -36,14 +36,6 @@ const Header = () => {
           </button>
           </Link>
 
-          {/* manage todos*/}
-          <Link to="/">
-          <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 bg-[#e7edf3] text-[#0e141b] gap-2 text-xl  leading-normal tracking-[0.015em] min-w-0 px-2.5">
-            <RiTodoFill  />
-            <span className='font-bold text-lg'>Manage Todos</span>
-          </button>
-          </Link>
-
           {/* profile*/}
           <Link to="/">
           <button className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 bg-[#e7edf3] text-[#0e141b] gap-2 text-xl  leading-normal tracking-[0.015em] min-w-0 px-2.5">

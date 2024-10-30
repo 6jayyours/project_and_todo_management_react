@@ -14,7 +14,7 @@ const Hero = () => {
     if (userId) {
       dispatch(getAllProjects(userId))
       .then((response) => {
-        console.log("Dispatch response:", response);
+        setProjects(response.payload)
       })
       .catch((error) => {
         console.error("Error fetching projects:", error);
@@ -29,7 +29,13 @@ const Hero = () => {
 
       {/** Project list */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-10">
-      <ProjectCard />
+      {projects.length > 0 ? (
+          projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))
+        ) : (
+          <p>No projects available.</p>
+        )}
       </div>
     </div>
   );
