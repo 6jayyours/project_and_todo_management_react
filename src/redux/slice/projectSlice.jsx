@@ -3,13 +3,12 @@ import axios from "axios";
 
 const PROJECT_URL = "http://localhost:8080/api/v1/project/";
 
-// Async actions for each endpoint
 export const createProject = createAsyncThunk(
   "project/createProject",
   async ({ userId, projectData }, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${PROJECT_URL}${userId}`, projectData);
-      return response.data; // Adjust based on your API response
+      return response.data; 
     } catch (error) {
       const errorMessage = error.response?.data?.message || "Project creation failed";
       return rejectWithValue(errorMessage);
@@ -72,10 +71,10 @@ export const exportAsGist = createAsyncThunk(
     try {
       const response = await axios.post("https://api.github.com/gists", gistData, {
         headers: {
-          Authorization: `Bearer my_token`, // Replace with your GitHub token
+          Authorization: `Bearer my_token`, // Replace my_token with GitHub token
         },
       });
-      return response.data; // Gist URL or response data
+      return response.data; 
     } catch (error) {
       const errorMessage = error.response?.data?.message || "Failed to create gist";
       return rejectWithValue(errorMessage);
@@ -84,7 +83,6 @@ export const exportAsGist = createAsyncThunk(
 );
 
 
-// Project slice
 const projectSlice = createSlice({
   name: "project",
   initialState: {
@@ -99,21 +97,18 @@ const projectSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Create Project
       .addCase(createProject.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(createProject.fulfilled, (state, action) => {
         state.loading = false;
-        state.projects.push(action.payload); // Append new project
+        state.projects.push(action.payload); 
       })
       .addCase(createProject.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
-      
-      // Edit Project
       .addCase(editProject.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -122,22 +117,20 @@ const projectSlice = createSlice({
         state.loading = false;
         const index = state.projects.findIndex(project => project.id === action.payload.id);
         if (index !== -1) {
-          state.projects[index] = action.payload; // Update the edited project
+          state.projects[index] = action.payload; 
         }
       })
       .addCase(editProject.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
-      
-      // Get All Projects
       .addCase(getAllProjects.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(getAllProjects.fulfilled, (state, action) => {
         state.loading = false;
-        state.projects = action.payload; // Replace with fetched projects
+        state.projects = action.payload; 
       })
       .addCase(getAllProjects.rejected, (state, action) => {
         state.loading = false;

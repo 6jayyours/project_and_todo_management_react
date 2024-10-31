@@ -8,7 +8,7 @@ export const fetchTodos = createAsyncThunk(
   async (projectId, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${TODO_URL}${projectId}`);
-      return response.data; // Adjust based on your API response
+      return response.data; 
     } catch (error) {
       const errorMessage = error.response?.data?.message || "Failed to fetch todos";
       return rejectWithValue(errorMessage);
@@ -21,7 +21,7 @@ export const addTodo = createAsyncThunk(
   async ({ projectId, todoData }, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${TODO_URL}${projectId}`, todoData);
-      return response.data; // Adjust based on your API response
+      return response.data; 
     } catch (error) {
       const errorMessage = error.response?.data?.message || "Failed to add todo";
       return rejectWithValue(errorMessage);
@@ -34,7 +34,7 @@ export const updateTodo = createAsyncThunk(
   async ({ todoId, todoData }, { rejectWithValue }) => {
     try {
       const response = await axios.put(`${TODO_URL}${todoId}`, todoData);
-      return response.data; // Adjust based on your API response
+      return response.data;
     } catch (error) {
       const errorMessage = error.response?.data?.message || "Failed to update todo";
       return rejectWithValue(errorMessage);
@@ -47,7 +47,7 @@ export const deleteTodo = createAsyncThunk(
   async (todoId, { rejectWithValue }) => {
     try {
       const response = await axios.delete(`${TODO_URL}${todoId}`);
-      return response.data; // Adjust based on your API response
+      return response.data; 
     } catch (error) {
       const errorMessage = error.response?.data?.message || "Failed to delete todo";
       return rejectWithValue(errorMessage);
@@ -88,7 +88,7 @@ const todosSlice = createSlice({
       })
       .addCase(fetchTodos.fulfilled, (state, action) => {
         state.loading = false;
-        state.todos = action.payload; // Assuming the payload contains the array of todos
+        state.todos = action.payload; 
       })
       .addCase(fetchTodos.rejected, (state, action) => {
         state.loading = false;
@@ -100,7 +100,7 @@ const todosSlice = createSlice({
       })
       .addCase(addTodo.fulfilled, (state, action) => {
         state.loading = false;
-        state.todos.push(action.payload); // Assuming the payload contains the new todo
+        state.todos.push(action.payload); 
       })
       .addCase(addTodo.rejected, (state, action) => {
         state.loading = false;
@@ -129,7 +129,7 @@ const todosSlice = createSlice({
         state.loading = false;
         const index = state.todos.findIndex(todo => todo.id === action.payload.id);
         if (index !== -1) {
-          state.todos[index] = { ...state.todos[index], status: true }; // Assuming the payload updates the status
+          state.todos[index] = { ...state.todos[index], status: true }; 
         }
       })
       .addCase(updateTodoStatus.rejected, (state, action) => {

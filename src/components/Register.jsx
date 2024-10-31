@@ -7,9 +7,9 @@ const Register = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth);
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
-  // Clear error after a delay
+  /** Handle error clearing */
   useEffect(() => {
     if (error) {
       const timeout = setTimeout(() => {
@@ -19,44 +19,47 @@ const Register = () => {
     }
   }, [error, dispatch]);
 
+  /** Handle input changes */
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  /** Handle form submission */
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(registerUser(formData))
-    .unwrap() 
-    .then(() => {
-      navigate("/login"); 
-    })
-    .catch((error) => {
-      console.error("Login error:", error);
-    });
+      .unwrap()
+      .then(() => {
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.error("Login error:", error);
+      });
   };
 
   return (
     <section className="bg-gray-50">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        {/* Application Title */}
         <a
           href="#"
           className="flex items-center mb-6 text-2xl font-extrabold text-gray-900"
         >
           TODO APP
         </a>
+
+        {/* Login Form Container */}
         <div className="w-full bg-gray-200 rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-
-            {/** title */}
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
               Create your account
             </h1>
 
-            {/** error message */}
-            {error && <p className="text-red-600">{error}</p>} 
+            {/* Error Message */}
+            {error && <p className="text-red-600">{error}</p>}
 
-            {/** form */}
+            {/* Login Form */}
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
@@ -94,13 +97,17 @@ const Register = () => {
                   required
                 />
               </div>
+
+              {/* Submit Button */}
               <button
                 type="submit"
                 className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                disabled={loading} // Disable button when loading
+                disabled={loading}
               >
                 {loading ? "Registering..." : "Register"}
               </button>
+
+              {/* Registration Link */}
               <p className="text-sm font-light text-gray-600">
                 Already have an account?{" "}
                 <a

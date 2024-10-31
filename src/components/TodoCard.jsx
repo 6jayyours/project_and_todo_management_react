@@ -8,16 +8,17 @@ import { useDispatch } from "react-redux";
 const TodoCard = ({ todo, onEdit, onRemove }) => {
   const dispatch = useDispatch();
 
-  // Local state to manage the completion status and updated date of the todo
+
   const [isCompleted, setIsCompleted] = useState(todo.status);
   const [updatedDate, setUpdatedDate] = useState(todo.updatedDate);
 
-  // Effect to sync local state with props on initial render
   useEffect(() => {
     setIsCompleted(todo.status);
-    setUpdatedDate(todo.updatedDate); // Sync the updated date as well
+    setUpdatedDate(todo.updatedDate); 
   }, [todo.status, todo.updatedDate]);
+a
 
+// Function to handle toggling the completion of the todo
   const handleToggleCompletion = async () => {
     const result = await Swal.fire({
       title: "Are you sure?",
@@ -29,15 +30,10 @@ const TodoCard = ({ todo, onEdit, onRemove }) => {
     });
 
     if (result.isConfirmed) {
-      // Dispatch the action to update the status in the backend
-      await dispatch(updateTodoStatus(todo.id)); // Pass the todo ID to update
-
-      // Update the local state to reflect the completion status and updated date
+      await dispatch(updateTodoStatus(todo.id)); 
       setIsCompleted(true);
-      const currentDate = new Date().toLocaleDateString(); // Get the current date
-      setUpdatedDate(currentDate); // Update the date to current
-
-      // Optionally, you can show a success message
+      const currentDate = new Date().toLocaleDateString();
+      setUpdatedDate(currentDate);
       Swal.fire("Completed!", "Your task has been marked as completed.", "success");
     }
   };
@@ -52,7 +48,7 @@ const TodoCard = ({ todo, onEdit, onRemove }) => {
         <input
           type="checkbox"
           checked={isCompleted}
-          onChange={isCompleted ? null : handleToggleCompletion} // Use handleToggleCompletion
+          onChange={isCompleted ? null : handleToggleCompletion} 
           className="form-checkbox h-5 w-5 text-blue-600"
           disabled={isCompleted} // Disable checkbox if completed
         />
@@ -72,7 +68,7 @@ const TodoCard = ({ todo, onEdit, onRemove }) => {
 
       {/* Updated Date */}
       <div className="flex-shrink-0 w-56 text-gray-500 text-center">
-        <p>Updated on: {updatedDate}</p> {/* Use local state for updated date */}
+        <p>Updated on: {updatedDate}</p> 
       </div>
 
       {/* Status */}
@@ -88,12 +84,16 @@ const TodoCard = ({ todo, onEdit, onRemove }) => {
 
       {/* Actions */}
       <div className="flex items-center space-x-2 w-24">
+
+        {/** delete */}
         <button
           onClick={onRemove}
           className="flex items-center text-xl text-red-500 hover:underline"
         >
           <MdDelete className="mr-1" />
         </button>
+
+        {/**edit */}
         {!isCompleted && (
           <button
             onClick={onEdit}
